@@ -7,6 +7,7 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -18,10 +19,24 @@
         canvas {
             border: 1px solid #fff;
         }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="controls">
+        <button id="up">⬆️</button>
+        <button id="left">⬅️</button>
+        <button id="down">⬇️</button>
+        <button id="right">➡️</button>
+    </div>
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
@@ -94,16 +109,18 @@
             placeFood();
         }
 
-        window.addEventListener("keydown", e => {
-            if (e.key === "ArrowUp" && direction.y === 0) {
-                direction = { x: 0, y: -1 };
-            } else if (e.key === "ArrowDown" && direction.y === 0) {
-                direction = { x: 0, y: 1 };
-            } else if (e.key === "ArrowLeft" && direction.x === 0) {
-                direction = { x: -1, y: 0 };
-            } else if (e.key === "ArrowRight" && direction.x === 0) {
-                direction = { x: 1, y: 0 };
-            }
+        // Обработка нажатий на кнопки
+        document.getElementById("up").addEventListener("click", () => {
+            if (direction.y === 0) direction = { x: 0, y: -1 };
+        });
+        document.getElementById("down").addEventListener("click", () => {
+            if (direction.y === 0) direction = { x: 0, y: 1 };
+        });
+        document.getElementById("left").addEventListener("click", () => {
+            if (direction.x === 0) direction = { x: -1, y: 0 };
+        });
+        document.getElementById("right").addEventListener("click", () => {
+            if (direction.x === 0) direction = { x: 1, y: 0 };
         });
 
         placeFood();
